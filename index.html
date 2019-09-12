@@ -19,7 +19,7 @@ mapboxgl.accessToken = 'pk.eyJ1IjoiaWtlbWFwcyIsImEiOiJjanppbHcyaTkwMG5wM25xdGRxZ
 var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/ikemaps/ck040grly02691cqmvwcsrb0r', // stylesheet location
-    center: [-121, 37], // starting position [lng, lat]
+    center: [-117, 35.5], // starting position [lng, lat]
     zoom: 6 // starting zoom
 });
 
@@ -43,7 +43,8 @@ map.on('style.load', function() {
     /*there are many options for styling - this is a simple style*/
 
     'paint': {
-      'line-color': '#b32e40'
+      'line-color': '#b32e40',
+      'line-width': 8
     }
   });
 });
