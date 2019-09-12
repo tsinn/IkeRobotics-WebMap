@@ -29,9 +29,11 @@ map.on('style.load', function() {
     /*many types of data can be added, such as geojson, vector tiles or raster data*/
     'data': 'az.geojson'
   });
-  
-    /*here we are adding a source, then a layer based on that that source*/
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
+/*here we are adding a source, then a layer based on that that source*/
   map.addLayer({
     'id': 'azLane',
     'type': 'line',    /*define the type of layer fill, line, point, fill-extrusion, background, raster, circle*/
