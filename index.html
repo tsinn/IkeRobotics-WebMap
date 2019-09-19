@@ -6,27 +6,33 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
-        #fitBounds {
-            background-color: #ee8a65;
-            font-family: Helvetica, Arial, Sans-Serif;
+        .fit {
+            display: block;
+            position: relative;
+            margin: 10px;
+            width: 160px;
+            height: 40px;
+            padding: 10px;
+            border: none;
+            border-radius: 3px;
+            font-size: 12px;
+            text-align: center;
             color: #fff;
-            position: absolute;
-            top: 1em;
-            right: 1em;
-            padding: 0.7em;
-            border-radius: 0.2em;
-            cursor: pointer;
+            background: black;
         }
+        
     </style>
 </head>
 <body>
 
 <div id='map'></div>
-<div id='fitBounds' onclick='fit()'>Lanes</div>
+<button class='fit' id='sf'>San Francisco Bay Area</button>
+<button class='fit' id='cv'>Central Valley</button>
+<button class='fit' id='sc'>Southern California</button>
+<button class='fit' id='az'>Arizona</button>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWtlbWFwcyIsImEiOiJjanppbHcyaTkwMG5wM25xdGRxZm1ub2lxIn0.ytjlrwAKqzzHUPilJFhn9A';
 var map = new mapboxgl.Map({
@@ -83,16 +89,17 @@ map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
-map.on('sourcedata', function (e) {
-  if (e.sourceId !== 'trucksLane' || !e.isSourceLoaded) return
-  var f = map.querySourceFeatures('trucksLane')
-  if (f.length === 0) return
-  var bbox = turf.bbox({
-    type: 'FeatureCollection',
-    features: f
-  });
-  map.fitBounds(bbox, {padding: 20});    
-})
+document.getElementById('sf').addEventListener('click', function() {
+map.fitBounds([ [ -122.4716, 37.33287 ], [ -122.05892, 37.77254 ] ] );});
+
+document.getElementById('cv').addEventListener('click', function() {
+map.fitBounds([ [ -122.41928, 34.31641 ], [ -118.48951, 37.82754 ] ]);});
+
+document.getElementById('sc').addEventListener('click', function() {
+map.fitBounds([ [ -118.48951, 34.06464 ], [ -117.19914, 34.32374 ] ]);});
+
+document.getElementById('az').addEventListener('click', function() {
+map.fitBounds([ [ -117.19986, 33.42686 ], [ -112.06511, 34.06464 ] ]);});
 
 </script>
 
