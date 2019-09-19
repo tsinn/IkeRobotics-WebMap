@@ -6,7 +6,7 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
-    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    <script src='https://api.mapbox.com/mapbox.js/plugins/turf/v2.0.2/turf.min.js'></script>
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
@@ -36,7 +36,7 @@ var map = new mapboxgl.Map({
     zoom: 6 // starting zoom
 });
 
-var geojson = 'trucks.geojson'
+var geojson = 'trucks.geojson';
 
 map.on('style.load', function() {
   map.addSource('trucks', {
@@ -85,8 +85,10 @@ map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
-var features='trucks.geojson'
-var bbox = turf.bbox(features);
+var bbox = turf.extent(geojson);
+function fit() {
+    map.fitBounds(bbox, {padding: 20});
+}
 
 </script>
 
