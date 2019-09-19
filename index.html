@@ -83,11 +83,16 @@ map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
-var geojson = 'trucks.geojson';
-var bbox = turf.extent(geojson);
-function fit() {
-    map.fitBounds(bbox, {padding: 20});
-}
+map.on('sourcedata', function (e) {
+  if (e.sourceId !== 'trucksLane' || !e.isSourceLoaded) return
+  var f = map.querySourceFeatures('trucksLane')
+  if (f.length === 0) return
+  var bbox = turf.bbox({
+    type: 'FeatureCollection',
+    features: f
+  });
+  map.fitBounds(bbox, {padding: 20});    
+})
 
 </script>
 
