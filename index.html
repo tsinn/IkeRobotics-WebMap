@@ -36,8 +36,6 @@ var map = new mapboxgl.Map({
     zoom: 6 // starting zoom
 });
 
-var geojson = 'trucks.geojson';
-
 map.on('style.load', function() {
   map.addSource('trucks', {
     'type': 'geojson',
@@ -85,6 +83,7 @@ map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
+var geojson = "trucks.geojson";
 var bbox = turf.extent(geojson);
 function fit() {
     map.fitBounds(bbox, {padding: 20});
