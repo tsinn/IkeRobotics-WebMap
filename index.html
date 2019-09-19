@@ -24,10 +24,10 @@ var map = new mapboxgl.Map({
 });
 
 map.on('style.load', function() {
-  map.addSource('az', {
+  map.addSource('trucks', {
     'type': 'geojson',
     /*many types of data can be added, such as geojson, vector tiles or raster data*/
-    'data': 'az.geojson'
+    'data': 'trucks.geojson'
   });
 
 // Add zoom and rotation controls to the map.
@@ -35,9 +35,9 @@ map.addControl(new mapboxgl.NavigationControl());
 
 /*here we are adding a source, then a layer based on that that source*/
   map.addLayer({
-    'id': 'azLane',
+    'id': 'trucksLane',
     'type': 'line',    /*define the type of layer fill, line, point, fill-extrusion, background, raster, circle*/
-    'source': 'az',
+    'source': 'trucks',
     'layout': {
       'visibility': 'visible'
     },
@@ -53,7 +53,7 @@ map.addControl(new mapboxgl.NavigationControl());
 
 // When a click event occurs on a feature in the lanes layer, open a popup at the
 // location of the feature, with description HTML from its properties.
-map.on('click', 'azLane', function (e) {
+map.on('click', 'trucksLane', function (e) {
     new mapboxgl.Popup()
         .setLngLat(e.lngLat)
         .setHTML(e.features[0].properties.Name)
@@ -61,12 +61,12 @@ map.on('click', 'azLane', function (e) {
 });
  
 // Change the cursor to a pointer when the mouse is over the lane layer.
-map.on('mouseenter', 'azLane', function () {
+map.on('mouseenter', 'trucksLane', function () {
 map.getCanvas().style.cursor = 'pointer';
 });
  
 // Change it back to a pointer when it leaves.
-map.on('mouseleave', 'azLane', function () {
+map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
