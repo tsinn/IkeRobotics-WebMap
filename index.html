@@ -6,14 +6,28 @@
     <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v1.3.1/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://npmcdn.com/@turf/turf/turf.min.js'></script>
+    
     <style>
         body { margin:0; padding:0; }
         #map { position:absolute; top:0; bottom:0; width:100%; }
+        #fitBounds {
+            background-color: #ee8a65;
+            font-family: Helvetica, Arial, Sans-Serif;
+            color: #fff;
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            padding: 0.7em;
+            border-radius: 0.2em;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <div id='map'></div>
+<div id='fitBounds' onclick='fit()'>fit to polygon</div>
 <script>
 mapboxgl.accessToken = 'pk.eyJ1IjoiaWtlbWFwcyIsImEiOiJjanppbHcyaTkwMG5wM25xdGRxZm1ub2lxIn0.ytjlrwAKqzzHUPilJFhn9A';
 var map = new mapboxgl.Map({
@@ -69,6 +83,11 @@ map.getCanvas().style.cursor = 'pointer';
 map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
+
+var bbox = turf.extent(trucks);
+function fit() {
+    map.fitBounds(bbox, {padding: 20});
+}
 
 </script>
 
