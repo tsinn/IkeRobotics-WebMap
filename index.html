@@ -83,7 +83,7 @@ map.on('mouseleave', 'trucksLane', function () {
 map.getCanvas().style.cursor = '';
 });
 
-var geojson = "trucks.geojson";
+var geojson = 'trucks.geojson'
 var bbox = turf.extent(geojson);
 function fit() {
     map.fitBounds(bbox, {padding: 20});
