@@ -24,55 +24,13 @@ var map = new mapboxgl.Map({
     container: 'map', // container id
     style: 'mapbox://styles/ikemaps/ck040grly02691cqmvwcsrb0r', // stylesheet location
     center: [-117, 35.5], // starting position [lng, lat]
-    zoom: 6 // starting zoom
+    zoom: 6, // starting zoom
+    minZoom: 4,
+    maxZoom: 9
 });
-
-map.on('style.load', function() {
-  map.addSource('trucks', {
-    'type': 'geojson',
-    /*many types of data can be added, such as geojson, vector tiles or raster data*/
-    'data': 'trucks.geojson'
-  });
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
-
-/*here we are adding a source, then a layer based on that that source*/
-  map.addLayer({
-    'id': 'trucksLane',
-    'type': 'line',    /*define the type of layer fill, line, point, fill-extrusion, background, raster, circle*/
-    'source': 'trucks',
-    'layout': {
-      'visibility': 'visible'
-    },
-    
-    /*there are many options for styling - this is a simple style*/
-
-    'paint': {
-      'line-color': '#b32e40',
-      'line-width': 5
-    }
-  });
-});
-
-// When a click event occurs on a feature in the lanes layer, open a popup at the
-// location of the feature, with description HTML from its properties.
-map.on('click', 'trucksLane', function (e) {
-    new mapboxgl.Popup()
-        .setLngLat(e.lngLat)
-        .setHTML(e.features[0].properties.Name)
-        .addTo(map);
-});
- 
-// Change the cursor to a pointer when the mouse is over the lane layer.
-map.on('mouseenter', 'trucksLane', function () {
-map.getCanvas().style.cursor = 'pointer';
-});
- 
-// Change it back to a pointer when it leaves.
-map.on('mouseleave', 'trucksLane', function () {
-map.getCanvas().style.cursor = '';
-});
 </script>
 
 </body>
